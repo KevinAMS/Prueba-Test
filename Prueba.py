@@ -1,4 +1,4 @@
-#Prueba XD
+#Prueba Test 
 def extraer_linea(linea):
     inicio = linea.find('>') 
     fin = linea.find('<', inicio)
@@ -12,6 +12,7 @@ def extraer_linea(linea):
                 if '=' in parte:
                     id_valor_partes = parte.split('=')
                     id_valor = id_valor_partes[1].strip()
+                    #print(id_valor)
                     return id_valor
     return None 
   
@@ -25,8 +26,20 @@ def obtenerIDS(datas):
                 ids.add(id_valor)
                 #print(f'ID añadido: {id_valor}')
     return ids
-            
 
+
+def formatoColumna(idsUnicos, formColum = 4):
+    idsUnicos = list(idsUnicos)
+    formato = []
+    for i in range(0, len(idsUnicos), formColum):
+        columna = idsUnicos[i:i+4]
+        formato.append(", ".join(f"'{id}'" for id in columna))
+
+    idsFormato = "[ " + ",\n".join(formato) + " ]"
+
+    return idsFormato
+
+            
 data15 = 'data_15.txt'
 data16 = 'data_16.txt'
 
@@ -36,4 +49,6 @@ ids_data16 = obtenerIDS(data16)
 idsUnicos = ids_data15 - ids_data16
 
 print("Los siguientes Imeis no estan en el archivo de las 16 hr: ")
-print(list(idsUnicos))
+#print(idsUnicos)
+idsFormateados = formatoColumna(idsUnicos)
+print(idsFormateados)
